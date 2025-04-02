@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0irk1hcf7183"]
+
+[ext_resource type="PackedScene" uid="uid://do0bghpq3ii50" path="res://elements/skill_node_edit/skill_node_edit.tscn" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://t7433f4qba8i" path="res://elements/view/view.tscn" id="1_ig7tw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ig7tw"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AdditionalControlls" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="AdditionalControlls"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ig7tw")
+
+[node name="SkillNodeEditModal" parent="AdditionalControlls/Panel" instance=ExtResource("1_0xm2m")]
+layout_mode = 1
+anchors_preset = 9
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 63.0
+offset_right = 321.0
+offset_bottom = -65.0
+grow_horizontal = 1
+
+[node name="AddSkillButton" type="Button" parent="AdditionalControlls/Panel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = -57.0
+offset_right = 321.0
+offset_bottom = -18.0
+grow_vertical = 0
+text = "+ Add Skill"
+
+[node name="View" parent="." instance=ExtResource("1_ig7tw")]
+layout_mode = 1
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="AdditionalControlls/Panel/AddSkillButton" to="View" method="_on_add_skill_button_pressed"]

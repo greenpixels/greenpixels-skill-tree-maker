@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://ij46eump80da"]
+
+[node name="ConnectionLine" type="Line2D"]
+width = 2.0
+default_color = Color(1, 1, 1, 0.517647)
