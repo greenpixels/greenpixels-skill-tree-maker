@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cjblkxv5a836" path="res://elements/skill_node_connector/skill_node_connector.gd" id="1_8shrr"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_8shrr"]
-size = Vector2(4, 4)
+[sub_resource type="SphereMesh" id="SphereMesh_8shrr"]
+radius = 9.0
+height = 18.0
 
 [node name="SkillNodeConnector" type="Control"]
 layout_mode = 3
@@ -18,6 +19,7 @@ script = ExtResource("1_8shrr")
 
 [node name="Connector" type="Button" parent="."]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -32,9 +34,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_default_cursor_shape = 2
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Connector"]
-position = Vector2(14, 14)
-mesh = SubResource("QuadMesh_8shrr")
+[node name="ConnectorIcon" type="MeshInstance2D" parent="."]
+unique_name_in_owner = true
+mesh = SubResource("SphereMesh_8shrr")
 
 [node name="LineConnections" type="Control" parent="."]
 unique_name_in_owner = true

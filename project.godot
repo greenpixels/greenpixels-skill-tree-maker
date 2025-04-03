@@ -21,7 +21,7 @@ driver/driver="Dummy"
 
 [autoload]
 
-DragContext="*res://contexts/drag_context.gd"
+DragContext="*res://contexts/DragContext/drag_context.gd"
 
 [rendering]
 
