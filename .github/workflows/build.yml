@@ -154,7 +154,7 @@ jobs:
         with:
             workflow: Deployment
             token: ${{ secrets.PAT }}
-            inputs: '{"origin_run_id" : "${{ github.run_id }}", "project_version" : "${{ needs.get-version.outputs.version }}"'
+            inputs: '{"origin_run_id" : "${{ github.run_id }}", "project_version" : "${{ needs.get-version.outputs.version }}"}'
   # export-mac:
   #   needs: version
   #   name: Mac Export
