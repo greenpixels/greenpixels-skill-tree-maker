@@ -1,0 +1,46 @@
+on:
+    workflow_dispatch:
+        inputs:
+            origin_run_id:
+                description: The ID of the workflow that triggered this workflow
+                required: true
+            project_version: 
+                description: The version string of the project
+                required: true
+
+name: "Deployment"
+
+env:
+  VERSION: ${{ inputs.project_version }}
+  ITCH_GAME: greenpixels-skill-tree-maker
+  ITCH_USER: greenpixels
+  BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+jobs:
+    deploy_itch:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Download artifacts
+              uses: actions/download-artifact@v4
+              with:
+                run-id: ${{ inputs.origin_run_id }}
+                github-token: ${{ secrets.PAT }}
+                path: .artifacts
+
+            - name: Butler - Windows
+              uses: manleydev/butler-publish-itchio-action@master
+              env:
+                CHANNEL: windows
+                PACKAGE: .artifacts/windows-${{ inputs.project_version }}
+                
+
+            - name: Butler - Web
+              uses: manleydev/butler-publish-itchio-action@master
+              env:
+                CHANNEL: web
+                PACKAGE: .artifacts/web-${{ inputs.project_version }}
+
+            - name: Butler - Web
+              uses: manleydev/butler-publish-itchio-action@master
+              env:
+                CHANNEL: linux
+                PACKAGE: .artifacts/linux-${{ inputs.project_version }}
