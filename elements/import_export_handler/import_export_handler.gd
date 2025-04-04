@@ -3,13 +3,28 @@ extends Node
 @onready var import_dialog := $ImportDialog
 @onready var export_dialog := $ExportDialog
 @onready var invalid_node_dialog := $InvalidNodeDialog
+@onready var web_file_exchange := $WebFileExchange
+
 var skill_node_scene = preload("res://elements/skill_node/skill_node.tscn")
 
+func _ready() -> void:
+	if web_file_exchange._check_is_web_platform():
+		web_file_exchange.file_loaded.connect(_handle_web_import)
+
 func _on_import_started():
-	import_dialog.show()
+	if not web_file_exchange._check_is_web_platform():
+		import_dialog.show()
+	else:
+		web_file_exchange.open_load_file_dialog()
 
 func _on_export_started():
-	export_dialog.show()
+	if not web_file_exchange._check_is_web_platform():
+		export_dialog.show()
+	else:
+		var json = _generate_json_from_current_skill_tree()
+		if not json:
+			return
+		web_file_exchange.download_file(json.to_utf8_buffer(), "skill_tree-" + Time.get_datetime_string_from_system() + ".gp.json")
 
 func _generate_json_from_current_skill_tree() -> Variant:
 	var data = {}
@@ -48,8 +63,11 @@ func _on_export_dialog_file_selected(path: String) -> void:
 	file.store_string(json)
 
 func _handle_import(data: Dictionary):
-	
+	if not data: 
+		push_error("Invalid data")
+		return
 	View.current_graph_view.clear_all()
+	print(data)
 
 	if data.has("nodes") and data.nodes is Array:
 		for node_data in data.nodes:
@@ -88,6 +106,13 @@ func _handle_import(data: Dictionary):
 		if data.has("connection_id_index"):
 			ConnectionEntry.id_index = data.connection_id_index
 
+func _handle_web_import(buffer: PackedByteArray, file_type: String, file_name: String):
+	if not file_name.ends_with(".gp.json"):
+		push_error(file_name + " is not a valid skill-tree file.")
+		return
+	var file_content = buffer.get_string_from_utf8()
+	print(file_content)
+	_handle_import(JSON.parse_string(file_content))
 
 func _on_import_dialog_file_selected(path: String) -> void:
 	if FileAccess.file_exists(path):

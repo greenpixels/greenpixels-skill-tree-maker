@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bf1hit2og8j1q"]
+[gd_scene load_steps=3 format=3 uid="uid://bf1hit2og8j1q"]
 
 [ext_resource type="Script" uid="uid://kte8qu2n82eb" path="res://elements/import_export_handler/import_export_handler.gd" id="1_7yfgu"]
+[ext_resource type="Script" uid="uid://dsgjtbr1s4mdk" path="res://addons/html_5_file_exchange/html_5_file_exchange.gd" id="2_xvb6x"]
 
 [node name="ImportExportHandler" type="Node"]
 script = ExtResource("1_7yfgu")
@@ -27,6 +28,9 @@ popup_window = true
 sharp_corners = true
 force_native = true
 dialog_text = "Error: Some nodes are invalid. Make sure every node has a key set."
+
+[node name="WebFileExchange" type="Node" parent="."]
+script = ExtResource("2_xvb6x")
 
 [connection signal="file_selected" from="ImportDialog" to="." method="_on_import_dialog_file_selected"]
 [connection signal="file_selected" from="ExportDialog" to="." method="_on_export_dialog_file_selected"]

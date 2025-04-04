@@ -14,9 +14,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AdditionalControlls" type="CanvasLayer" parent="."]
+[node name="AdditionalControls" type="CanvasLayer" parent="."]
 
-[node name="Panel" type="Panel" parent="AdditionalControlls"]
+[node name="Panel" type="Panel" parent="AdditionalControls"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -25,7 +25,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ig7tw")
 
-[node name="SkillNodeEditModal" parent="AdditionalControlls/Panel" instance=ExtResource("1_0xm2m")]
+[node name="SkillNodeEditModal" parent="AdditionalControls/Panel" instance=ExtResource("1_0xm2m")]
 layout_mode = 1
 anchors_preset = 9
 anchor_left = 0.0
@@ -38,7 +38,7 @@ offset_right = 321.0
 offset_bottom = -65.0
 grow_horizontal = 1
 
-[node name="AddSkillButton" type="Button" parent="AdditionalControlls/Panel"]
+[node name="AddSkillButton" type="Button" parent="AdditionalControls/Panel"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -53,7 +53,7 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "+ Add Skill"
 
-[node name="ImportButton" type="Button" parent="AdditionalControlls/Panel"]
+[node name="ImportButton" type="Button" parent="AdditionalControls/Panel"]
 layout_mode = 1
 offset_left = 467.0
 offset_top = 10.0
@@ -61,7 +61,7 @@ offset_right = 621.0
 offset_bottom = 45.0
 text = "Import ..."
 
-[node name="ExportButton" type="Button" parent="AdditionalControlls/Panel"]
+[node name="ExportButton" type="Button" parent="AdditionalControls/Panel"]
 layout_mode = 1
 offset_left = 307.0
 offset_top = 10.0
@@ -69,7 +69,7 @@ offset_right = 461.0
 offset_bottom = 45.0
 text = "Export ..."
 
-[node name="ClearButton" type="Button" parent="AdditionalControlls/Panel"]
+[node name="ClearButton" type="Button" parent="AdditionalControls/Panel"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -87,7 +87,7 @@ metadata/_edit_lock_ = true
 
 [node name="ImportExportHandler" parent="." instance=ExtResource("3_h2yge")]
 
-[connection signal="pressed" from="AdditionalControlls/Panel/AddSkillButton" to="View" method="_on_add_skill_button_pressed"]
-[connection signal="pressed" from="AdditionalControlls/Panel/ImportButton" to="ImportExportHandler" method="_on_import_started"]
-[connection signal="pressed" from="AdditionalControlls/Panel/ExportButton" to="ImportExportHandler" method="_on_export_started"]
-[connection signal="pressed" from="AdditionalControlls/Panel/ClearButton" to="View" method="_on_clear_button_pressed"]
+[connection signal="pressed" from="AdditionalControls/Panel/AddSkillButton" to="View" method="_on_add_skill_button_pressed"]
+[connection signal="pressed" from="AdditionalControls/Panel/ImportButton" to="ImportExportHandler" method="_on_import_started"]
+[connection signal="pressed" from="AdditionalControls/Panel/ExportButton" to="ImportExportHandler" method="_on_export_started"]
+[connection signal="pressed" from="AdditionalControls/Panel/ClearButton" to="View" method="_on_clear_button_pressed"]
