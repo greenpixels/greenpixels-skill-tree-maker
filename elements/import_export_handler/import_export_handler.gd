@@ -67,7 +67,6 @@ func _handle_import(data: Dictionary):
 		push_error("Invalid data")
 		return
 	View.current_graph_view.clear_all()
-	print(data)
 
 	if data.has("nodes") and data.nodes is Array:
 		for node_data in data.nodes:
@@ -111,7 +110,6 @@ func _handle_web_import(buffer: PackedByteArray, file_type: String, file_name: S
 		push_error(file_name + " is not a valid skill-tree file.")
 		return
 	var file_content = buffer.get_string_from_utf8()
-	print(file_content)
 	_handle_import(JSON.parse_string(file_content))
 
 func _on_import_dialog_file_selected(path: String) -> void:
