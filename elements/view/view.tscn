@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://x6hnx5mw86nj" path="res://elements/view/view.gd" id="1_76dsx"]
 
-[node name="View" type="GraphEdit" node_paths=PackedStringArray("center_point")]
+[node name="View" type="GraphEdit"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -11,12 +11,3 @@ grow_vertical = 2
 snapping_distance = 36
 minimap_enabled = false
 script = ExtResource("1_76dsx")
-center_point = NodePath("CenterPoint")
-
-[node name="CenterPoint" type="GraphElement" parent="."]
-layout_mode = 0
-offset_left = 570.0
-offset_top = 330.0
-offset_right = 570.0
-offset_bottom = 330.0
-position_offset = Vector2(570, 330)

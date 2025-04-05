@@ -35,7 +35,7 @@ anchor_bottom = 1.0
 offset_left = 16.0
 offset_top = 63.0
 offset_right = 321.0
-offset_bottom = -65.0
+offset_bottom = -23.0
 grow_horizontal = 1
 
 [node name="AddSkillButton" type="Button" parent="AdditionalControlls/Panel"]

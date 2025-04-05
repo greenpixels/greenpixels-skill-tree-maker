@@ -13,6 +13,7 @@ static var skill_node_register : Dictionary[String, SkillNode] = {}
 @onready var body: Control = %Body
 @onready var status_border: Control = %StatusBorder
 @onready var texture_rect: TextureRect = %TextureRect
+@onready var max_points_label : Label = %MaxPointsLabel
 
 static var id_index: int = 0
 var id: int = 0
@@ -83,6 +84,7 @@ func set_image(path: String) -> void:
 
 func set_max_points(value : int):
 	configuration.max_points = value
+	max_points_label.text = str(configuration.max_points)
 
 func set_needed_neighbour_point_sum(value: int):
 	configuration.needed_neighbour_point_sum = value
@@ -148,6 +150,11 @@ func add_neighbour(connector : SkillNodeConnector):
 		SkillNodeConnector.ANCHOR_DIRECTION.DOWN_RIGHT:
 			connector.add_connection(neighbour.get_connector_by_anchor_direction(SkillNodeConnector.ANCHOR_DIRECTION.UP_LEFT))
 	_update_all_connector_positions.call_deferred()
+	neighbour.connect("ready", func():
+		neighbour.body.grab_focus.call_deferred()
+		graph.move_to(neighbour)
+		, CONNECT_ONE_SHOT)
+	
 
 func get_connector_by_anchor_direction(anchor_direction: SkillNodeConnector.ANCHOR_DIRECTION):
 	match anchor_direction:

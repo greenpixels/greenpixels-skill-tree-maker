@@ -211,6 +211,42 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_a5ata")
 
+[node name="CenterContainer" type="CenterContainer" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.0
+offset_top = 31.0
+offset_right = 195.0
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Control/Panel/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = -2
+collapsed = true
+dragging_enabled = false
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="Control/Panel/CenterContainer/HSplitContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 24
+text = "0/"
+
+[node name="MaxPointsLabel" type="Label" parent="Control/Panel/CenterContainer/HSplitContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 24
+text = "1"
+
 [connection signal="mouse_entered" from="Control/Panel/HoverArea" to="." method="_on_body_mouse_entered"]
 [connection signal="mouse_exited" from="Control/Panel/HoverArea" to="." method="_on_body_mouse_exited"]
 [connection signal="button_down" from="Control/Panel/Body" to="." method="_on_body_button_down"]

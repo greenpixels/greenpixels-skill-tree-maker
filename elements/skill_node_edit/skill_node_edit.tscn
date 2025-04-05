@@ -83,7 +83,6 @@ text = "Needed Neighbours Points Sum (?)"
 [node name="NeededPointsInput" type="SpinBox" parent="ScrollContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-min_value = 1.0
 max_value = 999.0
 value = 1.0
 rounded = true
