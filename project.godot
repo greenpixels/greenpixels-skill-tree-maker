@@ -26,7 +26,7 @@ DragContext="*res://contexts/DragContext/drag_context.gd"
 
 [display]
 
-window/size/mode=3
+window/size/mode=2
 
 [rendering]
 
