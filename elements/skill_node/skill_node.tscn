@@ -224,9 +224,11 @@ offset_right = 195.0
 offset_bottom = 71.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Control/Panel/CenterContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = -2
 collapsed = true
 dragging_enabled = false

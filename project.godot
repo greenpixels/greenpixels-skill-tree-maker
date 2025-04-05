@@ -24,6 +24,10 @@ driver/driver="Dummy"
 
 DragContext="*res://contexts/DragContext/drag_context.gd"
 
+[display]
+
+window/size/mode=3
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

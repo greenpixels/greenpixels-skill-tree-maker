@@ -15,6 +15,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_8shrr")
 
 [node name="Connector" type="Button" parent="."]
@@ -32,6 +33,7 @@ offset_right = 14.0
 offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 mouse_default_cursor_shape = 2
 
 [node name="ConnectorIcon" type="MeshInstance2D" parent="."]
@@ -48,6 +50,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [connection signal="mouse_entered" from="Connector" to="." method="_on_connector_mouse_entered"]
 [connection signal="mouse_exited" from="Connector" to="." method="_on_connector_mouse_exited"]
