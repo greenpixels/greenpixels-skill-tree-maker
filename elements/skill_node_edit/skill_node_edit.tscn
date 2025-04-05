@@ -43,10 +43,12 @@ layout_mode = 2
 placeholder_text = "e.g my_cool_skill"
 
 [node name="ImageLabel" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Image"
 
 [node name="HSplitContainer" type="HSplitContainer" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 dragging_enabled = false
 
