@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://mhwyrccyxxnk"]
+
+[ext_resource type="Script" uid="uid://bpciqbth33q63" path="res://elements/custom_properties_edit/custom_properties_edit.gd" id="1_cpe"]
+
+[node name="CustomPropertiesEdit" type="AcceptDialog" unique_id=1158643534]
+oversampling_override = 1.0
+title = "Custom Properties"
+initial_position = 2
+size = Vector2i(536, 581)
+visible = true
+popup_window = true
+ok_button_text = "Close"
+script = ExtResource("1_cpe")
+
+[node name="ContentMargin" type="MarginContainer" parent="." unique_id=7734479]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 528.0
+offset_bottom = 532.0
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContentMargin" unique_id=387541317]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ContentMargin/VBoxContainer" unique_id=1837462154]
+modulate = Color(0.50271857, 0.50271857, 0.5027185, 1)
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Custom properties will generate inputs that can be configured on every skill node. Custom properties are included in the exported data."
+autowrap_mode = 3
+
+[node name="AddLabel" type="Label" parent="ContentMargin/VBoxContainer" unique_id=219961995]
+layout_mode = 2
+text = "Add new property"
+
+[node name="AddRow" type="HBoxContainer" parent="ContentMargin/VBoxContainer" unique_id=1071918935]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="NameInput" type="LineEdit" parent="ContentMargin/VBoxContainer/AddRow" unique_id=133009149]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "property_name"
+
+[node name="TypeOption" type="OptionButton" parent="ContentMargin/VBoxContainer/AddRow" unique_id=1846692390]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "Text"
+popup/item_0/id = 0
+popup/item_1/text = "Boolean"
+popup/item_1/id = 1
+popup/item_2/text = "Decimal"
+popup/item_2/id = 2
+popup/item_3/text = "Integer"
+popup/item_3/id = 3
+
+[node name="AddButton" type="Button" parent="ContentMargin/VBoxContainer/AddRow" unique_id=2011555523]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+text = "Add"
+
+[node name="Separator" type="HSeparator" parent="ContentMargin/VBoxContainer" unique_id=1785722394]
+layout_mode = 2
+
+[node name="ExistingLabel" type="Label" parent="ContentMargin/VBoxContainer" unique_id=562723300]
+layout_mode = 2
+text = "Existing properties"
+
+[node name="ListScroll" type="ScrollContainer" parent="ContentMargin/VBoxContainer" unique_id=938882873]
+custom_minimum_size = Vector2(480, 260)
+layout_mode = 2
+
+[node name="ListContainer" type="VBoxContainer" parent="ContentMargin/VBoxContainer/ListScroll" unique_id=699526913]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6

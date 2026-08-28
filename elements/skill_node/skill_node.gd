@@ -5,7 +5,8 @@ class Configuration:
 	var image_path: String = ""
 	var key: String = ""
 	var max_points : int = 1
-	var needed_neighbour_point_sum : = 0
+	var custom_properties: Dictionary = {}
+	var internal_comment: String = ""
 	
 static var skill_node_register : Dictionary[String, SkillNode] = {}
 
@@ -18,12 +19,22 @@ static var skill_node_register : Dictionary[String, SkillNode] = {}
 static var id_index: int = 0
 var id: int = 0
 
+signal custom_properties_changed
+signal id_changed
+
 var is_invalid: bool = false:
 	set(value):
 		is_invalid = value
-		status_border.modulate = Color.RED if is_invalid else Color.WHITE
-		
+		_update_appearance()
+
+var is_selected: bool = false:
+	set(value):
+		is_selected = value
+		_update_appearance()
+
 var configuration: Configuration
+var _default_texture: Texture2D
+var _border_style: StyleBoxFlat
 var _is_body_being_dragged: bool = false
 var _has_started_drag_movement: bool = false
 var _last_mouse_position: Vector2 = Vector2.ZERO
@@ -36,11 +47,18 @@ func _ready() -> void:
 	id_index += 1
 	body.set_meta("skill_node", self)
 	configuration = Configuration.new()
+	_default_texture = texture_rect.texture
+	_border_style = (status_border.get_theme_stylebox("panel") as StyleBoxFlat).duplicate()
+	status_border.add_theme_stylebox_override("panel", _border_style)
+	CustomPropertyContext.ensure_property_on_node(self)
 	validate()
 	DragContext.connection_drag_started.connect(queue_redraw)
 	DragContext.connection_drag_ended.connect(queue_redraw)
 	graph = get_parent() as GraphEdit 
-	Callable(func(): skill_node_register[str(id)] = self).call_deferred()
+	Callable(func():
+		skill_node_register[str(get_instance_id())] = self
+		_validate_all_nodes()
+	).call_deferred()
 	
 func _process(_delta: float) -> void:
 	if has_ongoing_connection_process:
@@ -77,26 +95,85 @@ func set_key(key: String) -> void:
 	configuration.key = key
 	validate()
 
+func set_id(new_id: int) -> void:
+	if new_id < 0:
+		new_id = 0
+	if id == new_id:
+		return
+	var old_id := id
+	id = new_id
+	id_changed.emit()
+	_validate_all_nodes()
+
+static func get_node_by_id(search_id: int) -> SkillNode:
+	for skill_node in skill_node_register.values() as Array[SkillNode]:
+		if skill_node.id == search_id:
+			return skill_node
+	return null
+
+static func _validate_all_nodes() -> void:
+	var id_counts: Dictionary = {}
+	for skill_node in skill_node_register.values() as Array[SkillNode]:
+		var key := str(skill_node.id)
+		id_counts[key] = id_counts.get(key, 0) + 1
+	for skill_node in skill_node_register.values() as Array[SkillNode]:
+		skill_node.validate(id_counts[str(skill_node.id)] > 1)
+
 func set_image(path: String) -> void:
 	configuration.image_path = path
-	texture_rect.texture = ImageTexture.create_from_image(Image.load_from_file(configuration.image_path))
+	if path.is_empty() or not FileAccess.file_exists(path):
+		texture_rect.texture = _default_texture
+	else:
+		var img := Image.load_from_file(path)
+		if img:
+			texture_rect.texture = ImageTexture.create_from_image(img)
+		else:
+			texture_rect.texture = _default_texture
 	validate()
 
 func set_max_points(value : int):
 	configuration.max_points = value
 	max_points_label.text = str(configuration.max_points)
 
-func set_needed_neighbour_point_sum(value: int):
-	configuration.needed_neighbour_point_sum = value
+func set_internal_comment(comment: String) -> void:
+	configuration.internal_comment = comment
+	tooltip_text = comment
+	body.tooltip_text = comment
 
-func validate() -> void:
-	is_invalid = configuration.key.strip_edges().is_empty()
-		
+func notify_custom_properties_changed() -> void:
+	custom_properties_changed.emit()
+
+func _update_appearance() -> void:
+	if _border_style == null:
+		return
+	if is_invalid:
+		_border_style.border_color = Color.RED
+		_border_style.border_width_left = 2
+		_border_style.border_width_top = 2
+		_border_style.border_width_right = 2
+		_border_style.border_width_bottom = 2
+	elif is_selected:
+		_border_style.border_color = Color.YELLOW
+		_border_style.border_width_left = 3
+		_border_style.border_width_top = 3
+		_border_style.border_width_right = 3
+		_border_style.border_width_bottom = 3
+	else:
+		_border_style.border_color = Color(0.458405, 0.458405, 0.458405, 1)
+		_border_style.border_width_left = 2
+		_border_style.border_width_top = 2
+		_border_style.border_width_right = 2
+		_border_style.border_width_bottom = 2
+	status_border.queue_redraw()
+
+func validate(id_collision: bool = false) -> void:
+	is_invalid = configuration.key.strip_edges().is_empty() or id_collision
 func delete() -> void:
 	for connector in connectors:
 		connector._remove_connections()
-	if skill_node_register.has(str(id)):
-		skill_node_register.erase(str(id))
+	if skill_node_register.has(str(get_instance_id())):
+		skill_node_register.erase(str(get_instance_id()))
+	_validate_all_nodes()
 	queue_free()
 
 func _on_connector_connection_drag_end(connector: SkillNodeConnector) -> void:

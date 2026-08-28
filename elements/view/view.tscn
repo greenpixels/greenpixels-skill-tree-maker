@@ -1,15 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://t7433f4qba8i"]
+[gd_scene format=3 uid="uid://t7433f4qba8i"]
 
 [ext_resource type="Script" uid="uid://x6hnx5mw86nj" path="res://elements/view/view.gd" id="1_76dsx"]
 
-[node name="View" type="GraphEdit"]
+[node name="View" type="GraphEdit" unique_id=938274746]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/selection_stroke = Color(0, 0, 0, 0)
 theme_override_colors/selection_fill = Color(0, 0, 0, 0)
+theme_override_colors/selection_stroke = Color(0, 0, 0, 0)
 snapping_distance = 36
 minimap_enabled = false
 script = ExtResource("1_76dsx")

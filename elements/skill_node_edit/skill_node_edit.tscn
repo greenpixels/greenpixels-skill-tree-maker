@@ -1,73 +1,124 @@
-[gd_scene load_steps=2 format=3 uid="uid://do0bghpq3ii50"]
+[gd_scene format=3 uid="uid://do0bghpq3ii50"]
 
 [ext_resource type="Script" uid="uid://xwo1k3kh21ri" path="res://elements/skill_node_edit/skill_node_edit.gd" id="1_kpdhl"]
+[ext_resource type="Texture2D" uid="uid://t0b5nykpqyes" path="res://elements/skill_node_edit/settings.svg" id="2_settings"]
+[ext_resource type="Texture2D" uid="uid://c21hp6ekyopvo" path="res://elements/skill_node_edit/trash.svg" id="3_trash"]
+[ext_resource type="Texture2D" uid="uid://d0ml36xddxfs4" path="res://elements/skill_node_edit/download.svg" id="4_download"]
 
-[node name="SkillNodeEditModal" type="PanelContainer" node_paths=PackedStringArray("image_file_dialog", "file_path_input")]
+[node name="SkillNodeEditModal" type="PanelContainer" unique_id=925652195 node_paths=PackedStringArray("image_file_dialog", "save_image_file_dialog")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -190.5
-offset_top = -137.5
-offset_right = 190.5
-offset_bottom = 137.5
+offset_left = -160.0
+offset_top = -200.0
+offset_right = 160.0
+offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kpdhl")
 image_file_dialog = NodePath("ImageFileDialog")
-file_path_input = NodePath("ScrollContainer/MarginContainer/VBoxContainer/HSplitContainer/FilePathInput")
+save_image_file_dialog = NodePath("SaveImageFileDialog")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=422902603]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer" unique_id=606160082]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer" unique_id=322064560]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
+theme_override_constants/separation = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
+[node name="TopButtonRow" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1944117741]
+unique_name_in_owner = true
 layout_mode = 2
+alignment = 2
 
-[node name="KeyLabel" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="DeleteButton" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/TopButtonRow" unique_id=1031339320]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+theme_override_constants/icon_max_width = 16
+icon = ExtResource("3_trash")
+flat = true
+
+[node name="KeyLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1082962003]
 layout_mode = 2
 text = "Skill Key"
 
-[node name="KeyInput" type="LineEdit" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="KeyInput" type="LineEdit" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=718873648]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "e.g my_cool_skill"
 
-[node name="ImageLabel" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer"]
-visible = false
+[node name="IdLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1082962010]
+layout_mode = 2
+text = "ID"
+
+[node name="IdInput" type="SpinBox" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=718873650]
+unique_name_in_owner = true
+layout_mode = 2
+allow_greater = true
+allow_lesser = false
+
+[node name="InternalCommentLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1082962004]
+layout_mode = 2
+text = "Internal Comment"
+
+[node name="InternalCommentInput" type="TextEdit" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=718873649]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Shown as tooltip when hovering the node"
+placeholder_alpha = 0.4
+wrap_mode = 1
+scroll_vertical = 0.0
+
+[node name="ImageLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1052718237]
 layout_mode = 2
 text = "Image"
 
-[node name="HSplitContainer" type="HSplitContainer" parent="ScrollContainer/MarginContainer/VBoxContainer"]
-visible = false
+[node name="ImagePreview" type="TextureRect" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1553146510]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
-dragging_enabled = false
+expand_mode = 1
+stretch_mode = 5
 
-[node name="FilePathInput" type="LineEdit" parent="ScrollContainer/MarginContainer/VBoxContainer/HSplitContainer"]
+[node name="ImageButtonRow" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1442675981]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ChooseImageButton" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/ImageButtonRow" unique_id=946369958]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "Path to image ..."
-editable = false
+text = "Choose image ..."
 
-[node name="FilePathButton" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/HSplitContainer"]
+[node name="DownloadImageButton" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/ImageButtonRow" unique_id=1734533930]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
-text = "Select"
+theme_override_constants/icon_max_width = 16
+icon = ExtResource("4_download")
+flat = true
 
-[node name="MaxPointsLabel" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1935642989]
+layout_mode = 2
+
+[node name="MaxPointsLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1764438005]
 layout_mode = 2
 text = "Max Points"
 
-[node name="MaxPointsInput" type="SpinBox" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="MaxPointsInput" type="SpinBox" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=775291297]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 1.0
@@ -76,29 +127,37 @@ value = 1.0
 rounded = true
 allow_greater = true
 
-[node name="NeededPointsLabel" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=498332984]
 layout_mode = 2
-tooltip_text = "The needed amount of points needed so that this skill node becomes available."
-mouse_filter = 0
-text = "Needed Neighbours Points Sum (?)"
 
-[node name="NeededPointsInput" type="SpinBox" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="CustomPropertiesHeader" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1891163356]
 unique_name_in_owner = true
 layout_mode = 2
-max_value = 999.0
-value = 1.0
-rounded = true
-allow_greater = true
+theme_override_constants/separation = 6
 
-[node name="Space" type="Control" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="CustomPropertiesLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/CustomPropertiesHeader" unique_id=1153066932]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Custom Properties"
+
+[node name="CustomPropertiesSettingsButton" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/CustomPropertiesHeader" unique_id=2029674609]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+theme_override_constants/icon_max_width = 16
+icon = ExtResource("2_settings")
+flat = true
+
+[node name="CustomPropertiesContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1784549361]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Spacer" type="Control" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1455226131]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="DeleteButton" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Delete"
-
-[node name="ImageFileDialog" type="FileDialog" parent="."]
+[node name="ImageFileDialog" type="FileDialog" parent="." unique_id=370114590]
 title = "Open a File"
 initial_position = 1
 ok_button_text = "Open"
@@ -107,9 +166,27 @@ access = 2
 filters = PackedStringArray("*.png")
 use_native_dialog = true
 
-[connection signal="text_changed" from="ScrollContainer/MarginContainer/VBoxContainer/KeyInput" to="." method="_on_key_input_text_changed"]
-[connection signal="pressed" from="ScrollContainer/MarginContainer/VBoxContainer/HSplitContainer/FilePathButton" to="." method="_on_file_path_button_pressed"]
-[connection signal="value_changed" from="ScrollContainer/MarginContainer/VBoxContainer/MaxPointsInput" to="." method="_on_max_points_input_value_changed"]
-[connection signal="value_changed" from="ScrollContainer/MarginContainer/VBoxContainer/NeededPointsInput" to="." method="_on_needed_points_input_value_changed"]
-[connection signal="pressed" from="ScrollContainer/MarginContainer/VBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]
+[node name="SaveImageFileDialog" type="FileDialog" parent="." unique_id=2124140448]
+initial_position = 1
+ok_button_text = "Save"
+access = 2
+use_native_dialog = true
+
+[node name="DeleteConfirmDialog" type="ConfirmationDialog" parent="." unique_id=195321143]
+title = "Delete Skill"
+initial_position = 2
+popup_window = true
+ok_button_text = "Delete"
+dialog_text = "Are you sure you want to delete this skill node?"
+
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/TopButtonRow/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="text_changed" from="MarginContainer/ScrollContainer/VBoxContainer/KeyInput" to="." method="_on_key_input_text_changed"]
+[connection signal="value_changed" from="MarginContainer/ScrollContainer/VBoxContainer/IdInput" to="." method="_on_id_input_value_changed"]
+[connection signal="text_changed" from="MarginContainer/ScrollContainer/VBoxContainer/InternalCommentInput" to="." method="_on_internal_comment_input_text_changed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/ImageButtonRow/ChooseImageButton" to="." method="_on_file_path_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/ImageButtonRow/DownloadImageButton" to="." method="_on_download_image_button_pressed"]
+[connection signal="value_changed" from="MarginContainer/ScrollContainer/VBoxContainer/MaxPointsInput" to="." method="_on_max_points_input_value_changed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/CustomPropertiesHeader/CustomPropertiesSettingsButton" to="." method="_on_custom_properties_settings_pressed"]
 [connection signal="file_selected" from="ImageFileDialog" to="." method="_on_image_file_dialog_file_selected"]
+[connection signal="file_selected" from="SaveImageFileDialog" to="." method="_on_save_image_dialog_file_selected"]
+[connection signal="confirmed" from="DeleteConfirmDialog" to="." method="_on_delete_confirmed"]

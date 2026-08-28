@@ -6,6 +6,7 @@ const skill_node_scene: PackedScene = preload("res://elements/skill_node/skill_n
 var skill_nodes: Dictionary[String, SkillNode] = {}
 var move_tween : Tween
 static var current_graph_view : View
+@onready var clear_confirm_dialog: ConfirmationDialog = get_node_or_null("../ClearConfirmDialog")
 
 func _ready() -> void:
 	View.current_graph_view = self
@@ -32,13 +33,19 @@ func _on_add_skill_button_pressed() -> void:
 	move_to(skill_node)
 
 func clear_all():
-	for skill_node in SkillNode.skill_node_register.values() as Array[SkillNode]:
+	var nodes := (SkillNode.skill_node_register.values() as Array[SkillNode]).duplicate()
+	for skill_node in nodes:
 		skill_node.delete()
 	SkillNode.skill_node_register = {}
+	SkillNode.id_index = 0
 	ConnectionEntry.connection_register = {}
+	CustomPropertyContext.clear()
 
 func _on_clear_button_pressed() -> void:
-	clear_all()
+	if clear_confirm_dialog:
+		clear_confirm_dialog.popup_centered()
+	else:
+		clear_all()
 
 func move_to(node: SkillNode):
 	if move_tween:

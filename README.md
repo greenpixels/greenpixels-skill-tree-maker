@@ -10,6 +10,7 @@ Simple tool for creating skill trees.
 - `connections`: Links between skills.  
 - `node_id_index`: Next free node ID.  
 - `connection_id_index`: Next free connection ID.
+- `custom_property_definitions`: Map of custom property name to `{"type": "TEXT"|"BOOLEAN"|"DECIMAL"|"INTEGER"}`.
 
 ### Node
 
@@ -18,17 +19,21 @@ Simple tool for creating skill trees.
   "id": 0,
   "key": "name_of_my_skill",
   "max_points": 1,
-  "needed_neighbour_point_sum": 0,
+  "internal_comment": "",
   "position_x": 180.0,
-  "position_y": 0.0
+  "position_y": 0.0,
+  "image_base64": "<base64 encoded PNG>",
+  "custom_properties": {}
 }
 ```
 
 - `id`: Unique skill ID  
 - `key`: Skill key
 - `max_points`: Max allocatable points  
-- `needed_neighbour_point_sum`: Points needed from neighbors to make this node available 
+- `internal_comment`: Optional comment shown as a tooltip when hovering the node
 - `position_x/y`: UI position
+- `image_base64`: Optional base64 encoded PNG image baked into the export
+- `custom_properties`: Per-skill values for each defined custom property
 
 ### Connection
 

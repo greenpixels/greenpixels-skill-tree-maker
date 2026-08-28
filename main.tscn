@@ -1,12 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0irk1hcf7183"]
+[gd_scene format=3 uid="uid://d0irk1hcf7183"]
 
 [ext_resource type="PackedScene" uid="uid://do0bghpq3ii50" path="res://elements/skill_node_edit/skill_node_edit.tscn" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://t7433f4qba8i" path="res://elements/view/view.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://bf1hit2og8j1q" path="res://elements/import_export_handler/import_export_handler.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://mhwyrccyxxnk" path="res://elements/custom_properties_edit/custom_properties_edit.tscn" id="4_cpe"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ig7tw"]
 
-[node name="Main" type="Control"]
+[node name="Main" type="Control" unique_id=2065471743]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,9 +15,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AdditionalControls" type="CanvasLayer" parent="."]
+[node name="AdditionalControls" type="CanvasLayer" parent="." unique_id=1156937345]
 
-[node name="Panel" type="Panel" parent="AdditionalControls"]
+[node name="Panel" type="Panel" parent="AdditionalControls" unique_id=808622717]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -25,7 +26,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ig7tw")
 
-[node name="SkillNodeEditModal" parent="AdditionalControls/Panel" instance=ExtResource("1_0xm2m")]
+[node name="SkillNodeEditModal" parent="AdditionalControls/Panel" unique_id=1068231918 instance=ExtResource("1_0xm2m")]
 layout_mode = 1
 anchors_preset = 9
 anchor_left = 0.0
@@ -38,7 +39,34 @@ offset_right = 321.0
 offset_bottom = -23.0
 grow_horizontal = 1
 
-[node name="AddSkillButton" type="Button" parent="AdditionalControls/Panel"]
+[node name="TopBar" type="HBoxContainer" parent="AdditionalControls/Panel" unique_id=574354674]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 10.0
+offset_right = -16.0
+offset_bottom = 45.0
+grow_horizontal = 2
+theme_override_constants/separation = 8
+
+[node name="Spacer" type="Control" parent="AdditionalControls/Panel/TopBar" unique_id=2127893074]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ClearButton" type="Button" parent="AdditionalControls/Panel/TopBar" unique_id=912322376]
+layout_mode = 2
+text = "Clear All"
+
+[node name="ExportButton" type="Button" parent="AdditionalControls/Panel/TopBar" unique_id=250272045]
+layout_mode = 2
+text = "Export ..."
+
+[node name="ImportButton" type="Button" parent="AdditionalControls/Panel/TopBar" unique_id=775306616]
+layout_mode = 2
+text = "Import ..."
+
+[node name="AddSkillButton" type="Button" parent="AdditionalControls/Panel" unique_id=1405702315]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -53,41 +81,23 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "+ Add Skill"
 
-[node name="ImportButton" type="Button" parent="AdditionalControls/Panel"]
-layout_mode = 1
-offset_left = 467.0
-offset_top = 10.0
-offset_right = 621.0
-offset_bottom = 45.0
-text = "Import ..."
-
-[node name="ExportButton" type="Button" parent="AdditionalControls/Panel"]
-layout_mode = 1
-offset_left = 307.0
-offset_top = 10.0
-offset_right = 461.0
-offset_bottom = 45.0
-text = "Export ..."
-
-[node name="ClearButton" type="Button" parent="AdditionalControls/Panel"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -182.0
-offset_top = 10.0
-offset_right = -28.0
-offset_bottom = 45.0
-grow_horizontal = 0
-text = "Clear All"
-
-[node name="View" parent="." instance=ExtResource("1_ig7tw")]
+[node name="View" parent="." unique_id=1156989095 instance=ExtResource("1_ig7tw")]
 layout_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="ImportExportHandler" parent="." instance=ExtResource("3_h2yge")]
+[node name="ImportExportHandler" parent="." unique_id=2092816632 instance=ExtResource("3_h2yge")]
 
+[node name="CustomPropertiesEdit" parent="." unique_id=527160675 instance=ExtResource("4_cpe")]
+
+[node name="ClearConfirmDialog" type="ConfirmationDialog" parent="." unique_id=1233893850]
+title = "Clear All"
+initial_position = 2
+popup_window = true
+ok_button_text = "Clear"
+dialog_text = "Are you sure you want to clear all skill nodes and connections?"
+
+[connection signal="pressed" from="AdditionalControls/Panel/TopBar/ClearButton" to="View" method="_on_clear_button_pressed"]
+[connection signal="pressed" from="AdditionalControls/Panel/TopBar/ExportButton" to="ImportExportHandler" method="_on_export_started"]
+[connection signal="pressed" from="AdditionalControls/Panel/TopBar/ImportButton" to="ImportExportHandler" method="_on_import_started"]
 [connection signal="pressed" from="AdditionalControls/Panel/AddSkillButton" to="View" method="_on_add_skill_button_pressed"]
-[connection signal="pressed" from="AdditionalControls/Panel/ImportButton" to="ImportExportHandler" method="_on_import_started"]
-[connection signal="pressed" from="AdditionalControls/Panel/ExportButton" to="ImportExportHandler" method="_on_export_started"]
-[connection signal="pressed" from="AdditionalControls/Panel/ClearButton" to="View" method="_on_clear_button_pressed"]
+[connection signal="confirmed" from="ClearConfirmDialog" to="View" method="clear_all"]

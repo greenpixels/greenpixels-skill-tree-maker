@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://meiq1lfwvaj"]
+[gd_scene format=3 uid="uid://meiq1lfwvaj"]
 
 [ext_resource type="Script" uid="uid://dnneinsp4evnv" path="res://elements/skill_node/skill_node.gd" id="1_a5ata"]
 [ext_resource type="Texture2D" uid="uid://c70inoj6mwvyp" path="res://icon.svg" id="1_lhnmt"]
@@ -12,7 +12,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.458405, 0.458405, 0.458405, 1)
 
-[node name="SkillNode" type="GraphElement" node_paths=PackedStringArray("connectors")]
+[node name="SkillNode" type="GraphElement" unique_id=1313193191 node_paths=PackedStringArray("connectors")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -23,11 +23,11 @@ grow_vertical = 2
 script = ExtResource("1_a5ata")
 connectors = [NodePath("Control/Panel/LeftConnector"), NodePath("Control/Panel/DownConnector"), NodePath("Control/Panel/RightConnector"), NodePath("Control/Panel/TopConnector"), NodePath("Control/Panel/TopLeftConnector"), NodePath("Control/Panel/TopRightConnector"), NodePath("Control/Panel/BottomLeftConnector"), NodePath("Control/Panel/BottomRightConnector")]
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=831529789]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Panel" type="Panel" parent="Control"]
+[node name="Panel" type="Panel" parent="Control" unique_id=463580374]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -41,7 +41,7 @@ offset_bottom = 56.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HoverArea" type="Button" parent="Control/Panel"]
+[node name="HoverArea" type="Button" parent="Control/Panel" unique_id=1229813243]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -56,7 +56,7 @@ offset_bottom = 82.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Body" type="Button" parent="Control/Panel"]
+[node name="Body" type="Button" parent="Control/Panel" unique_id=617118697]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -66,18 +66,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_default_cursor_shape = 6
 
-[node name="TextureRect" type="TextureRect" parent="Control/Panel"]
+[node name="TextureRect" type="TextureRect" parent="Control/Panel" unique_id=195918200]
 unique_name_in_owner = true
+texture_filter = 1
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -48.5
-offset_top = -48.5
-offset_right = 48.5
-offset_bottom = 48.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -85,7 +80,18 @@ texture = ExtResource("1_lhnmt")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LeftConnector" parent="Control/Panel" node_paths=PackedStringArray("skill_node_parent") instance=ExtResource("2_a5ata")]
+[node name="StatusBorder" type="Panel" parent="Control/Panel/TextureRect" unique_id=2087099274]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a5ata")
+
+[node name="LeftConnector" parent="Control/Panel" unique_id=1112526126 node_paths=PackedStringArray("skill_node_parent") instance=ExtResource("2_a5ata")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 4
@@ -97,7 +103,7 @@ grow_horizontal = 1
 skill_node_parent = NodePath("../../..")
 anchor_direction = 2
 
-[node name="DownConnector" parent="Control/Panel" node_paths=PackedStringArray("skill_node_parent") instance=ExtResource("2_a5ata")]
+[node name="DownConnector" parent="Control/Panel" unique_id=1506446333 node_paths=PackedStringArray("skill_node_parent") instance=ExtResource("2_a5ata")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
@@ -109,7 +115,7 @@ grow_vertical = 0
 skill_node_parent = NodePath("../../..")
 anchor_direction = 1
 
-[node name="RightConnector" parent="Control/Panel" node_paths=PackedStringArray("skill_node_parent") instance=ExtResource("2_a5ata")]
+[node name="RightConnector" parent="Control/Panel" unique_id=821838713 node_paths=PackedStringArray("skill_node_parent") instance=ExtResource("2_a5ata")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 6
@@ -121,7 +127,7 @@ grow_horizontal = 0
 skill_node_parent = NodePath("../../..")
 anchor_direction = 3
 
-[node name="TopConnector" parent="Control/Panel" node_paths=PackedStringArray("skill_node_parent") instance=ExtResource("2_a5ata")]
+[node name="TopConnector" parent="Control/Panel" unique_id=614073697 node_paths=PackedStringArray("skill_node_parent") instance=ExtResource("2_a5ata")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
@@ -132,7 +138,7 @@ offset_bottom = -13.5
 grow_vertical = 1
 skill_node_parent = NodePath("../../..")
 
-[node name="TopLeftConnector" parent="Control/Panel" node_paths=PackedStringArray("skill_node_parent") instance=ExtResource("2_a5ata")]
+[node name="TopLeftConnector" parent="Control/Panel" unique_id=2034786978 node_paths=PackedStringArray("skill_node_parent") instance=ExtResource("2_a5ata")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 0
@@ -149,7 +155,7 @@ grow_vertical = 1
 skill_node_parent = NodePath("../../..")
 anchor_direction = 4
 
-[node name="TopRightConnector" parent="Control/Panel" node_paths=PackedStringArray("skill_node_parent") instance=ExtResource("2_a5ata")]
+[node name="TopRightConnector" parent="Control/Panel" unique_id=1076128650 node_paths=PackedStringArray("skill_node_parent") instance=ExtResource("2_a5ata")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
@@ -166,7 +172,7 @@ grow_vertical = 1
 skill_node_parent = NodePath("../../..")
 anchor_direction = 5
 
-[node name="BottomLeftConnector" parent="Control/Panel" node_paths=PackedStringArray("skill_node_parent") instance=ExtResource("2_a5ata")]
+[node name="BottomLeftConnector" parent="Control/Panel" unique_id=1186028758 node_paths=PackedStringArray("skill_node_parent") instance=ExtResource("2_a5ata")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 2
@@ -183,7 +189,7 @@ grow_vertical = 0
 skill_node_parent = NodePath("../../..")
 anchor_direction = 6
 
-[node name="BottomRightConnector" parent="Control/Panel" node_paths=PackedStringArray("skill_node_parent") instance=ExtResource("2_a5ata")]
+[node name="BottomRightConnector" parent="Control/Panel" unique_id=155746653 node_paths=PackedStringArray("skill_node_parent") instance=ExtResource("2_a5ata")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 3
@@ -200,18 +206,7 @@ grow_vertical = 0
 skill_node_parent = NodePath("../../..")
 anchor_direction = 7
 
-[node name="StatusBorder" type="Panel" parent="Control/Panel"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a5ata")
-
-[node name="CenterContainer" type="CenterContainer" parent="Control/Panel"]
+[node name="CenterContainer" type="CenterContainer" parent="Control/Panel" unique_id=17592921]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -226,7 +221,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="HSplitContainer" type="HSplitContainer" parent="Control/Panel/CenterContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="Control/Panel/CenterContainer" unique_id=1392225388]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = -2
@@ -234,14 +229,14 @@ collapsed = true
 dragging_enabled = false
 dragger_visibility = 2
 
-[node name="Label" type="Label" parent="Control/Panel/CenterContainer/HSplitContainer"]
+[node name="Label" type="Label" parent="Control/Panel/CenterContainer/HSplitContainer" unique_id=1200357573]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 24
 text = "0/"
 
-[node name="MaxPointsLabel" type="Label" parent="Control/Panel/CenterContainer/HSplitContainer"]
+[node name="MaxPointsLabel" type="Label" parent="Control/Panel/CenterContainer/HSplitContainer" unique_id=225766869]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
