@@ -24,7 +24,7 @@ func _on_export_started():
 		var json = _generate_json_from_current_skill_tree()
 		if not json:
 			return
-		web_file_exchange.download_file(json.to_utf8_buffer(), "skill_tree-" + Time.get_datetime_string_from_system() + ".gp.json")
+		web_file_exchange.download_file(json.to_utf8_buffer(), "skill_tree-" + Time.get_datetime_string_from_system() + ".gp-skill.json")
 
 func _generate_json_from_current_skill_tree() -> Variant:
 	var data = {}
@@ -145,7 +145,7 @@ func _handle_import(data: Dictionary):
 	Callable(SkillNode._validate_all_nodes).call_deferred()
 
 func _handle_web_import(buffer: PackedByteArray, file_type: String, file_name: String):
-	if not file_name.ends_with(".gp.json"):
+	if not file_name.ends_with(".gp-skill.json"):
 		push_error(file_name + " is not a valid skill-tree file.")
 		return
 	var file_content = buffer.get_string_from_utf8()
