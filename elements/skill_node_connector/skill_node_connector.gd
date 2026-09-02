@@ -28,7 +28,7 @@ signal connection_drag_start(connector: SkillNodeConnector)
 signal connection_drag_end(connector: SkillNodeConnector)
 
 func _input(event: InputEvent) -> void:
-	connector_icon.modulate = Color.WHITE if _is_hovered or skill_node_parent._is_hovered else Color.TRANSPARENT
+	connector_icon.modulate = Color(0.4, 0.6, 1, 1) if _is_hovered or skill_node_parent._is_hovered else Color.TRANSPARENT
 	if not _is_hovered: return
 	if event is InputEventMouseButton: 
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():

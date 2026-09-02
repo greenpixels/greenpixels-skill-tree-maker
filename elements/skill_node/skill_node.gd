@@ -146,24 +146,33 @@ func notify_custom_properties_changed() -> void:
 func _update_appearance() -> void:
 	if _border_style == null:
 		return
-	if is_invalid:
-		_border_style.border_color = Color.RED
-		_border_style.border_width_left = 2
-		_border_style.border_width_top = 2
-		_border_style.border_width_right = 2
-		_border_style.border_width_bottom = 2
-	elif is_selected:
-		_border_style.border_color = Color.YELLOW
-		_border_style.border_width_left = 3
-		_border_style.border_width_top = 3
-		_border_style.border_width_right = 3
-		_border_style.border_width_bottom = 3
+	if is_selected:
+		_border_style.border_color = Color(0.4, 0.6, 1, 1)
+		_border_style.border_width_left = 6
+		_border_style.border_width_top = 6
+		_border_style.border_width_right = 6
+		_border_style.border_width_bottom = 6
+		_border_style.bg_color = Color(0.95, 0.35, 0.4, 0.25) if is_invalid else Color(0, 0, 0, 0)
+		texture_rect.offset_transform_enabled = true
+		texture_rect.offset_transform_scale = Vector2(1.1, 1.1)
+	elif is_invalid:
+		_border_style.border_color = Color(0.95, 0.35, 0.4, 1)
+		_border_style.border_width_left = 4
+		_border_style.border_width_top = 4
+		_border_style.border_width_right = 4
+		_border_style.border_width_bottom = 4
+		_border_style.bg_color = Color(0.95, 0.35, 0.4, 0.25)
+		texture_rect.offset_transform_enabled = true
+		texture_rect.offset_transform_scale = Vector2.ONE
 	else:
-		_border_style.border_color = Color(0.458405, 0.458405, 0.458405, 1)
+		_border_style.border_color = Color(0.3, 0.34, 0.42, 1)
 		_border_style.border_width_left = 2
 		_border_style.border_width_top = 2
 		_border_style.border_width_right = 2
 		_border_style.border_width_bottom = 2
+		_border_style.bg_color = Color(0, 0, 0, 0)
+		texture_rect.offset_transform_enabled = true
+		texture_rect.offset_transform_scale = Vector2.ONE
 	status_border.queue_redraw()
 
 func validate(id_collision: bool = false) -> void:
@@ -252,7 +261,7 @@ func _draw() -> void:
 				draw_line(
 					_convert_global_position_to_graph_position(graph, connector.global_position) - _convert_global_position_to_graph_position(graph, global_position),
 					_convert_global_position_to_graph_position(graph, graph.get_global_mouse_position())  - _convert_global_position_to_graph_position(graph, global_position),
-					Color.from_rgba8(255, 255, 255, 80),
+					Color(0.4, 0.6, 1, 0.6),
 					2
 				)
 				return

@@ -51,6 +51,8 @@ flat = true
 
 [node name="KeyLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1082962003]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 16
 text = "Skill Key"
 
 [node name="KeyInput" type="LineEdit" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=718873648]
@@ -60,6 +62,8 @@ placeholder_text = "e.g my_cool_skill"
 
 [node name="IdLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1082962010]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 16
 text = "ID"
 
 [node name="IdInput" type="SpinBox" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=718873650]
@@ -70,6 +74,8 @@ allow_lesser = false
 
 [node name="InternalCommentLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1082962004]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 16
 text = "Internal Comment"
 
 [node name="InternalCommentInput" type="TextEdit" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=718873649]
@@ -84,6 +90,8 @@ scroll_vertical = 0.0
 
 [node name="ImageLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1052718237]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 16
 text = "Image"
 
 [node name="ImagePreview" type="TextureRect" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1553146510]
@@ -116,6 +124,8 @@ layout_mode = 2
 
 [node name="MaxPointsLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1764438005]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 16
 text = "Max Points"
 
 [node name="MaxPointsInput" type="SpinBox" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=775291297]
@@ -138,6 +148,8 @@ theme_override_constants/separation = 6
 [node name="CustomPropertiesLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/CustomPropertiesHeader" unique_id=1153066932]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 16
 text = "Custom Properties"
 
 [node name="CustomPropertiesSettingsButton" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/CustomPropertiesHeader" unique_id=2029674609]

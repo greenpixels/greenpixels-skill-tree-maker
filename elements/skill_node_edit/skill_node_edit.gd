@@ -17,6 +17,8 @@ var selected_skill_node: SkillNode = null:
 		if selected_skill_node and is_instance_valid(selected_skill_node):
 			selected_skill_node.custom_properties_changed.disconnect(_refresh_custom_properties)
 			selected_skill_node.is_selected = false
+			if selected_skill_node.tree_exited.is_connected(_on_selected_node_freed):
+				selected_skill_node.tree_exited.disconnect(_on_selected_node_freed)
 		selected_skill_node = value
 		if selected_skill_node:
 			show()
@@ -27,6 +29,8 @@ var selected_skill_node: SkillNode = null:
 			max_points_input.value = selected_skill_node.configuration.max_points
 			selected_skill_node.is_selected = true
 			selected_skill_node.custom_properties_changed.connect(_refresh_custom_properties)
+			if not selected_skill_node.tree_exited.is_connected(_on_selected_node_freed):
+				selected_skill_node.tree_exited.connect(_on_selected_node_freed)
 			_refresh_custom_properties()
 		else:
 			hide()
@@ -53,6 +57,9 @@ func _input(event: InputEvent) -> void:
 
 func update_selected_skill_node(node: SkillNode) -> void:
 	selected_skill_node = node
+
+func _on_selected_node_freed() -> void:
+	selected_skill_node = null
 
 func _refresh_image_preview() -> void:
 	if not selected_skill_node or not is_instance_valid(selected_skill_node):
@@ -169,11 +176,12 @@ func _refresh_custom_properties(_a: Variant = null, _b: Variant = null) -> void:
 		var type: int = CustomPropertyContext.get_custom_property_type(prop_name)
 		if not node_props.has(prop_name):
 			node_props[prop_name] = _default_value_for_type(type)
-		var row := HBoxContainer.new()
-		row.add_theme_constant_override("separation", 8)
+		var row := VBoxContainer.new()
+		row.add_theme_constant_override("separation", 4)
 		var label := Label.new()
 		label.text = prop_name
-		label.custom_minimum_size = Vector2(90, 0)
+		label.add_theme_color_override("font_color", Color(0.95, 0.97, 1, 1))
+		label.add_theme_font_size_override("font_size", 16)
 		row.add_child(label)
 		var captured_name := prop_name as String
 		match type:

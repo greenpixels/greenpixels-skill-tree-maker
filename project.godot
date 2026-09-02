@@ -34,6 +34,10 @@ CustomPropertyContext="*res://contexts/CustomPropertyContext/custom_property_con
 
 window/size/mode=2
 
+[gui]
+
+theme/custom="res://theme.tres"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
