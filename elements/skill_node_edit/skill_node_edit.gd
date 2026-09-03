@@ -15,6 +15,17 @@ extends PanelContainer
 var selected_skill_node: SkillNode = null:
 	set(value):
 		if selected_skill_node and is_instance_valid(selected_skill_node):
+			if selected_skill_node != value:
+				_is_switching = true
+				id_input.apply()
+				max_points_input.apply()
+				_apply_custom_property_inputs()
+				var vp := get_viewport()
+				if vp:
+					var focused := vp.gui_get_focus_owner()
+					if focused:
+						focused.release_focus()
+				_is_switching = false
 			selected_skill_node.custom_properties_changed.disconnect(_refresh_custom_properties)
 			selected_skill_node.is_selected = false
 			if selected_skill_node.tree_exited.is_connected(_on_selected_node_freed):
@@ -41,9 +52,14 @@ func _ready() -> void:
 	CustomPropertyContext.custom_property_added.connect(_refresh_custom_properties)
 	CustomPropertyContext.custom_property_removed.connect(_refresh_custom_properties)
 	CustomPropertyContext.custom_property_renamed.connect(_refresh_custom_properties)
+	CustomPropertyContext.custom_property_moved.connect(_refresh_custom_properties)
+
+var _is_switching: bool = false
 
 func _initialize_focus_change_handler() -> void:
 	get_viewport().gui_focus_changed.connect(func(control: Control):
+		if _is_switching:
+			return
 		if SkillNode.skill_node_register.values().is_empty():
 			update_selected_skill_node(null)
 			return
@@ -60,6 +76,27 @@ func update_selected_skill_node(node: SkillNode) -> void:
 
 func _on_selected_node_freed() -> void:
 	selected_skill_node = null
+
+func _apply_custom_property_inputs() -> void:
+	if not selected_skill_node or not is_instance_valid(selected_skill_node):
+		return
+	var node_props := selected_skill_node.configuration.custom_properties
+	for child in custom_properties_container.get_children():
+		if child is VBoxContainer:
+			var prop_name := ""
+			var input_control: Control = null
+			for sub in child.get_children():
+				if sub is Label:
+					prop_name = sub.text
+				elif sub is LineEdit or sub is SpinBox:
+					input_control = sub
+			if prop_name.is_empty() or input_control == null:
+				continue
+			if input_control is SpinBox:
+				input_control.apply()
+				node_props[prop_name] = int(input_control.value) if input_control.rounded else input_control.value
+			elif input_control is LineEdit:
+				node_props[prop_name] = input_control.text
 
 func _refresh_image_preview() -> void:
 	if not selected_skill_node or not is_instance_valid(selected_skill_node):

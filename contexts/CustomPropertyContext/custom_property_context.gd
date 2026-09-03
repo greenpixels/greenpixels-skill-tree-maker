@@ -5,6 +5,7 @@ enum TYPE { TEXT, BOOLEAN, DECIMAL, INTEGER }
 signal custom_property_added(name: String, type: int)
 signal custom_property_removed(name: String)
 signal custom_property_renamed(old_name: String, new_name: String)
+signal custom_property_moved(name: String, new_index: int)
 
 # name -> { "type": int }
 var _custom_properties: Dictionary = {}
@@ -69,3 +70,20 @@ func _default_value_for_type(type: int) -> Variant:
 
 func clear() -> void:
 	_custom_properties.clear()
+
+func move_custom_property(name: String, new_index: int) -> void:
+	if not _custom_properties.has(name):
+		return
+	var keys := _custom_properties.keys()
+	var old_index := keys.find(name)
+	if old_index == -1 or old_index == new_index or new_index < 0 or new_index >= keys.size():
+		return
+	keys.remove_at(old_index)
+	keys.insert(new_index, name)
+	var rebuilt := {}
+	for key in keys:
+		rebuilt[key] = _custom_properties[key]
+	_custom_properties = rebuilt
+	for skill_node in SkillNode.skill_node_register.values() as Array[SkillNode]:
+		skill_node.notify_custom_properties_changed()
+	custom_property_moved.emit(name, new_index)

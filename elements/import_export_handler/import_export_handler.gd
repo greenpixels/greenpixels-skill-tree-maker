@@ -33,12 +33,13 @@ func _generate_json_from_current_skill_tree() -> Variant:
 	data.node_id_index = SkillNode.id_index
 	data.connection_id_index = ConnectionEntry.id_index
 	var global_props := CustomPropertyContext.get_custom_properties()
-	var exported_props := {}
+	var exported_props := []
 	for prop_name in global_props:
 		var meta: Dictionary = global_props[prop_name]
-		exported_props[prop_name] = {
+		exported_props.push_back({
+			"name": prop_name,
 			"type": CustomPropertyContext.TYPE.keys()[meta["type"]]
-		}
+		})
 	data.custom_property_definitions = exported_props
 	for skill_node in SkillNode.skill_node_register.values() as Array[SkillNode]:
 		if skill_node.is_invalid:
@@ -85,16 +86,25 @@ func _handle_import(data: Dictionary):
 		return
 	View.current_graph_view.clear_all()
 
-	if data.has("custom_property_definitions") and data.custom_property_definitions is Dictionary:
-		for prop_name in data.custom_property_definitions:
-			var entry = data.custom_property_definitions[prop_name]
-			var type_name: String = ""
-			if entry is Dictionary:
-				type_name = entry.get("type", "")
-			elif entry is String:
-				type_name = entry
-			if CustomPropertyContext.TYPE.has(type_name):
-				CustomPropertyContext.add_custom_property(prop_name, CustomPropertyContext.TYPE[type_name])
+	if data.has("custom_property_definitions"):
+		var defs = data.custom_property_definitions
+		if defs is Array:
+			for entry in defs:
+				if entry is Dictionary:
+					var prop_name: String = entry.get("name", "")
+					var type_name: String = entry.get("type", "")
+					if not prop_name.is_empty() and CustomPropertyContext.TYPE.has(type_name):
+						CustomPropertyContext.add_custom_property(prop_name, CustomPropertyContext.TYPE[type_name])
+		elif defs is Dictionary:
+			for prop_name in defs:
+				var entry = defs[prop_name]
+				var type_name: String = ""
+				if entry is Dictionary:
+					type_name = entry.get("type", "")
+				elif entry is String:
+					type_name = entry
+				if CustomPropertyContext.TYPE.has(type_name):
+					CustomPropertyContext.add_custom_property(prop_name, CustomPropertyContext.TYPE[type_name])
 
 	if data.has("nodes") and data.nodes is Array:
 		for node_data in data.nodes:

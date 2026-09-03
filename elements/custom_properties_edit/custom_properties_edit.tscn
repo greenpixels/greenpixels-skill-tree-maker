@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://mhwyrccyxxnk"]
 
 [ext_resource type="Script" uid="uid://bpciqbth33q63" path="res://elements/custom_properties_edit/custom_properties_edit.gd" id="1_cpe"]
+[ext_resource type="Script" uid="uid://bybpnktkvbimt" path="res://elements/custom_properties_edit/drop_row.gd" id="2_drop"]
 
 [node name="CustomPropertiesEdit" type="AcceptDialog" unique_id=1158643534]
 oversampling_override = 1.0
@@ -13,10 +14,8 @@ ok_button_text = "Close"
 script = ExtResource("1_cpe")
 
 [node name="ContentMargin" type="MarginContainer" parent="." unique_id=7734479]
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 528.0
-offset_bottom = 532.0
+offset_right = 536.0
+offset_bottom = 539.0
 mouse_filter = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
@@ -80,10 +79,20 @@ text = "Existing properties"
 [node name="ListScroll" type="ScrollContainer" parent="ContentMargin/VBoxContainer" unique_id=938882873]
 custom_minimum_size = Vector2(480, 260)
 layout_mode = 2
+clip_contents = false
 
-[node name="ListContainer" type="VBoxContainer" parent="ContentMargin/VBoxContainer/ListScroll" unique_id=699526913]
+[node name="ListMargin" type="MarginContainer" parent="ContentMargin/VBoxContainer/ListScroll" unique_id=1112223333]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="ListContainer" type="VBoxContainer" parent="ContentMargin/VBoxContainer/ListScroll/ListMargin" unique_id=699526913]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+clip_contents = false
 theme_override_constants/separation = 6
+script = ExtResource("2_drop")

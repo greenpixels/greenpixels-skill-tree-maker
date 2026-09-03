@@ -1,5 +1,7 @@
 extends AcceptDialog
 
+const DragGrip = preload("res://elements/custom_properties_edit/drag_grip.gd")
+
 @onready var name_input: LineEdit = %NameInput
 @onready var type_option: OptionButton = %TypeOption
 @onready var add_button: Button = %AddButton
@@ -11,6 +13,7 @@ func _ready() -> void:
 	CustomPropertyContext.custom_property_added.connect(_rebuild_list)
 	CustomPropertyContext.custom_property_removed.connect(_rebuild_list)
 	CustomPropertyContext.custom_property_renamed.connect(_rebuild_list)
+	CustomPropertyContext.custom_property_moved.connect(_rebuild_list)
 	_rebuild_list()
 
 func _on_add_pressed() -> void:
@@ -28,6 +31,14 @@ func _rebuild_list(_arg1: Variant = null, _arg2: Variant = null) -> void:
 		var type: int = meta["type"]
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 8)
+		var grip := DragGrip.new()
+		grip.setup(prop_name)
+		grip.text = ": : :"
+		grip.custom_minimum_size = Vector2(24, 0)
+		grip.tooltip_text = "Drag to reorder"
+		grip.modulate.a = 0.5
+		grip.mouse_default_cursor_shape = Control.CURSOR_DRAG
+		row.add_child(grip)
 		var name_edit := LineEdit.new()
 		name_edit.text = prop_name
 		name_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
